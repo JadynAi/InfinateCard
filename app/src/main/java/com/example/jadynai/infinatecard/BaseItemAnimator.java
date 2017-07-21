@@ -1,21 +1,4 @@
 package com.example.jadynai.infinatecard;
-/*
- * Copyright (C) 2017 Wasabeef
- * Copyright (C) 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
 
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
@@ -218,7 +201,7 @@ public abstract class BaseItemAnimator extends SimpleItemAnimator {
     protected abstract void animateAddImpl(final ViewHolder holder);
 
     private void preAnimateRemove(final ViewHolder holder) {
-        ViewHelper.clear(holder.itemView);
+        ViewUtils.clear(holder.itemView);
 
         if (holder instanceof AnimateViewHolder) {
             ((AnimateViewHolder) holder).preAnimateRemoveImpl(holder);
@@ -228,7 +211,7 @@ public abstract class BaseItemAnimator extends SimpleItemAnimator {
     }
 
     private void preAnimateAdd(final ViewHolder holder) {
-        ViewHelper.clear(holder.itemView);
+        ViewUtils.clear(holder.itemView);
 
         if (holder instanceof AnimateViewHolder) {
             ((AnimateViewHolder) holder).preAnimateAddImpl(holder);
@@ -475,11 +458,11 @@ public abstract class BaseItemAnimator extends SimpleItemAnimator {
         }
         endChangeAnimation(mPendingChanges, item);
         if (mPendingRemovals.remove(item)) {
-            ViewHelper.clear(item.itemView);
+            ViewUtils.clear(item.itemView);
             dispatchRemoveFinished(item);
         }
         if (mPendingAdditions.remove(item)) {
-            ViewHelper.clear(item.itemView);
+            ViewUtils.clear(item.itemView);
             dispatchAddFinished(item);
         }
 
@@ -509,7 +492,7 @@ public abstract class BaseItemAnimator extends SimpleItemAnimator {
         for (int i = mAdditionsList.size() - 1; i >= 0; i--) {
             ArrayList<ViewHolder> additions = mAdditionsList.get(i);
             if (additions.remove(item)) {
-                ViewHelper.clear(item.itemView);
+                ViewUtils.clear(item.itemView);
                 dispatchAddFinished(item);
                 if (additions.isEmpty()) {
                     mAdditionsList.remove(i);
@@ -586,7 +569,7 @@ public abstract class BaseItemAnimator extends SimpleItemAnimator {
         count = mPendingAdditions.size();
         for (int i = count - 1; i >= 0; i--) {
             ViewHolder item = mPendingAdditions.get(i);
-            ViewHelper.clear(item.itemView);
+            ViewUtils.clear(item.itemView);
             dispatchAddFinished(item);
             mPendingAdditions.remove(i);
         }
@@ -690,12 +673,12 @@ public abstract class BaseItemAnimator extends SimpleItemAnimator {
 
         @Override
         public void onAnimationCancel(View view) {
-            ViewHelper.clear(view);
+            ViewUtils.clear(view);
         }
 
         @Override
         public void onAnimationEnd(View view) {
-            ViewHelper.clear(view);
+            ViewUtils.clear(view);
             dispatchAddFinished(mViewHolder);
             mAddAnimations.remove(mViewHolder);
             dispatchFinishedWhenDone();
@@ -717,12 +700,12 @@ public abstract class BaseItemAnimator extends SimpleItemAnimator {
 
         @Override
         public void onAnimationCancel(View view) {
-            ViewHelper.clear(view);
+            ViewUtils.clear(view);
         }
 
         @Override
         public void onAnimationEnd(View view) {
-            ViewHelper.clear(view);
+            ViewUtils.clear(view);
             dispatchRemoveFinished(mViewHolder);
             mRemoveAnimations.remove(mViewHolder);
             dispatchFinishedWhenDone();
